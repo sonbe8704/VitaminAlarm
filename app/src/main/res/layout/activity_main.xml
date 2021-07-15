@@ -7,20 +7,35 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:scrollbarFadeDuration="0"
-        android:scrollbarSize="5dp"
-        android:scrollbarThumbVertical="@android:color/darker_gray"
-        android:scrollbars="vertical"></androidx.recyclerview.widget.RecyclerView>
-    <Button
-        android:id="@+id/bt1"
-        android:layout_weight="8"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/listButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="listClick"
+            android:text="목록" />
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="addClick"
+            android:text="추가"></Button>
+    </LinearLayout>
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.example.vitamin.ListFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="추가"
-        ></Button>
+        android:layout_height="0dp"
+        android:layout_weight="10" />
+
+
+
 </LinearLayout>

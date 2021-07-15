@@ -1,6 +1,9 @@
 package com.example.vitamin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,36 +13,44 @@ import android.widget.Button;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<MainData> arrayList;
     private Mainadapter mainAdapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
+
+    Button ListButton;
+    Button addButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ListButton = (Button)findViewById(R.id.listButton);
+        addButton = (Button)findViewById(R.id.addButton);
         setContentView(R.layout.activity_main);
 
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerview);
+        FragmentManager fm=getSupportFragmentManager();
+        FragmentTransaction ft=fm.beginTransaction();
 
-        linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        ListFragment fragment = new ListFragment();
 
-        arrayList = new ArrayList<>();
+        ft.add(R.id.fragment,fragment);
 
-        mainAdapter = new Mainadapter(arrayList);
-        recyclerView.setAdapter(mainAdapter);
-
-        Button btn_add = (Button)findViewById(R.id.bt1);
-        btn_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainData mainData=new MainData(R.mipmap.ic_launcher, "알약이름","시간");
-                arrayList.add(mainData);
-                mainAdapter.notifyDataSetChanged();
-            }
-        });
+        ft.commit();
 
     }
+    public void addClick(View view){
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft=fm.beginTransaction();
+        ft.replace(R.id.fragment,new TimePickerFragment());
+        ft.commit();
+    }
+    public void listClick(View view){
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft=fm.beginTransaction();
+        ft.replace(R.id.fragment,new ListFragment());
+        ft.commit();
+    }
+
 }
